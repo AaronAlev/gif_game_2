@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "./logo.svg";
+import UsernameScreen from "./components/login.js";
 import "./App.css";
 
 function App() {
@@ -14,8 +14,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>{!data ? "Loading..." : data}</p>
+        <UsernameScreen />
       </header>
     </div>
   );
