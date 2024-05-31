@@ -1,19 +1,16 @@
 import React from "react";
+import data from "./ctest.json"
+import Userchat from "./Userchat.js";
 import "../App.css"
 
 const Chat = ({}) => {
+    const msgData = data;
     return (
         <div className="Chat">
             <div className="Chat-mbox">
-                <div className="Chat-message">
-                    <h2> Mr.Ligma: Ravila 31, 1st floor, behind you </h2>
-                </div>
-                <div className="Chat-message1">
-                    <h2> mogus: I am coming </h2>
-                </div>
-                <div className="Chat-message">
-                    <h2> Mr.Ligma: I am waiting </h2>
-                </div>
+                {msgData.map(( user, index ) => (                
+                    <Userchat key={index} data={user} classname={`Chat-message${index % 2 === 1 ? index:""}`} />
+            ))}
             </div>
             <div className="Chat-input">
                 <input type="text" placeholder="Type your message here" />

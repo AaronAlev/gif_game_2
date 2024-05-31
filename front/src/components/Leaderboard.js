@@ -1,19 +1,16 @@
 import React from "react";
+import data from "./test.json"
+import User from "./User.js"
 import "../App.css"
 
-const Leaderboard = ({}) => {
-
+const Leaderboard = () => {
+    const userData = data;
     return (
         <div className="Leaderboard">
             <h1> Leaderboard </h1>
-            <div className="Leaderboard-user">
-                <h2> Mr.Ligma </h2>
-                <p> 999 points </p>
-            </div>
-            <div className="Leaderboard-user"> 
-                <h2> mogus </h2>
-                <p> 420 points </p>
-            </div>
+            {userData.map((user, index) => (
+                <User key={index} data={user} />
+            ))}
         </div>
     )
 };
