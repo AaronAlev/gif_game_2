@@ -1,5 +1,5 @@
 import React from "react";
-import data from "./ctest.json"
+import data from "./test.json"
 import Userchat from "./Userchat.js";
 import "../App.css"
 
@@ -9,7 +9,7 @@ const Chat = ({}) => {
         <div className="Chat">
             <div className="Chat-mbox">
                 {msgData.map(( user, index ) => (                
-                    <Userchat key={index} data={user} classname={`Chat-message${index % 2 === 1 ? index:""}`} />
+                    <Userchat key={index} data={user} classname={`Chat-message${index % 2 === 1 ? 1:""}`} />
             ))}
             </div>
             <div className="Chat-input">

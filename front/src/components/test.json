@@ -1,18 +1,32 @@
 [
 {
     "Username": "Mr.Ligma",
-    "Points": 9999
+    "Points": 9999,
+    "message": "I am the LIGMA"
 },
 {
     "Username": "Mr.Sigma",
-    "Points": 9999
+    "Points": 9999,
+    "message": "I am the SIGMA"
 },
 {
     "Username": "Mongus among us",
-    "Points": 39
+    "Points": 39,
+    "message": "I am the MONGUS"
 },
 {
     "Username": "Ravila 31",
-    "Points": 31
+    "Points": 31,
+    "message": "I am at your door"
+},
+{
+    "Username": "Mr.Boo",
+    "Points": 9239,
+    "message": "I am the BOO"
+},
+{
+    "Username": "Mr.Boo",
+    "Points": 9239,
+    "message": "Niggers are my property lululululu"
 }
 ]
