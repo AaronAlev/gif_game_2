@@ -50,6 +50,13 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   width: 60%;
+
+/* Leaderboard */
+
+.Leaderboard {
+  width: 300px;
+  height: 900px;
+  background-color: #424242;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -85,3 +92,132 @@ body {
 .login-container button:hover {
   background-color: #f0f0f0;
 }
+.Leaderboard-user {
+  width: 290px;
+  height: 75px;
+  background-color: #D9D9D9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5px;
+  color: black;
+  border: solid 5px black;
+}
+
+.Leaderboard h1 {
+  text-align: center;
+  font-size: 35px;
+  margin: 5;
+}
+
+.Leaderboard h2 {
+  text-align: center;
+  font-size: 25px;
+  margin: 10px;
+}
+
+.Leaderboard p {
+  text-align: center;
+  font-size: 20px;
+  margin: -5px;
+}
+
+/* Chat */
+
+.Chat {
+  width: 300px;
+  height: 900px;
+  background-color: #424242;
+  display: flex;
+  flex-direction: column;
+}
+
+.Chat h2 {
+  text-align: left;
+  font-size: 25px;
+}
+
+.Chat-mbox {
+  margin-bottom: auto;
+}
+
+.Chat-message {
+  height: auto;
+  width: 300px;
+  color: black;
+  background-color: #D9D9D9;
+  margin-top: -20px;
+}
+
+.Chat-message1 {
+  height: auto;
+  width: 300px;
+  color: black;
+  background-color: #a1a1a1;
+  margin-top: -20px;
+}
+
+.Chat-input {
+  width: 300px;
+  height: 50px;
+  color: black;
+}
+
+.Chat-input input {
+  width: 93%;
+  height: 30px;
+  border-radius: 5px;
+  color: black;
+  border: solid 2px black;
+}
+
+/* Podium */
+
+.podium {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin: 20px;
+  user-select: none;
+}
+
+.podium-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  margin: 0 10px;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px 5px 0 0;
+}
+
+.podium-step-inner {
+  padding: 10px;
+}
+
+.podium-step.first {
+  height: 300px;
+  background: gold;
+}
+
+.podium-step.second {
+  height: 200px;
+  background: silver;
+}
+
+.podium-step.third {
+  height: 150px;
+  background: #cd7f32; /* Bronze color */
+}
+
+.position {
+  font-size: 40px;
+  margin: 0;
+}
+
+.name, .score {
+  font-size: 30px;
+  margin: 0.5px;
+}
+
