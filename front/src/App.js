@@ -2,6 +2,8 @@
 import React, { useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInAnonymously, signInWithCustomToken } from 'firebase/auth';
+import { getDatabase, ref, set } from 'firebase/database';
+import UsernameScreen from './components/login.js';
 import axios from 'axios';
 
 const firebaseConfig = {
@@ -17,33 +19,36 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getDatabase(app);
 
 const App = () => {
+  const [username, setUsername] = React.useState(null);
+  const [lobby_id, setLobbyId] = React.useState(null);
+  const [playerRef, setPlayerRef] = React.useState(null);
+
   useEffect(() => {
-    signInAnonymously(auth).catch((error) => {
+    signInAnonymously(auth)
+    .then(userCredential => {
+      const user = userCredential.user;
+      console.log('User signed in', user.uid);
+       const playerReference = ref(db, `players/${user.uid}`);
+       setPlayerRef(playerReference);
+    })
+    .catch((error) => {
       console.error('Authentication error', error);
     });
-    
-    
-    /*const authenticate = async () => {
-      try {
-        const response = await axios.post('http://localhost:3001/authenticate');
-        const { token } = response.data;
-        console.log('Token', token);
-        await signInWithCustomToken(auth, token);
-        console.log('User authenticated anonymously');
-      } catch (error) {
-        console.error('Authentication error', error);
-      }
-    };*/
-
-    //authenticate();
-  }, []);
+  }, [lobby_id, username]);
 
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Anonymous Authentication with Firebase</h1>
+        <UsernameScreen
+          username={username}
+          setUsername={setUsername}
+          lobby_id={lobby_id}
+          setLobbyId={setLobbyId}
+          playerRef={playerRef}
+        />
       </header>
     </div>
   );
