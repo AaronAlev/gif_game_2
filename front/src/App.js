@@ -24,15 +24,14 @@ const db = getDatabase(app);
 const App = () => {
   const [username, setUsername] = React.useState(null);
   const [lobby_id, setLobbyId] = React.useState(null);
-  const [playerRef, setPlayerRef] = React.useState(null);
+  const [userUID, setUserUID] = React.useState(null);
 
   useEffect(() => {
     signInAnonymously(auth)
     .then(userCredential => {
       const user = userCredential.user;
       console.log('User signed in', user.uid);
-       const playerReference = ref(db, `players/${user.uid}`);
-       setPlayerRef(playerReference);
+      setUserUID(user.uid);
     })
     .catch((error) => {
       console.error('Authentication error', error);
@@ -47,7 +46,8 @@ const App = () => {
           setUsername={setUsername}
           lobby_id={lobby_id}
           setLobbyId={setLobbyId}
-          playerRef={playerRef}
+          db={db}
+          uid={userUID}
         />
       </header>
     </div>
