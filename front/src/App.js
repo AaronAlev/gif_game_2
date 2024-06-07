@@ -4,6 +4,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, signInAnonymously, signInWithCustomToken } from 'firebase/auth';
 import { getDatabase, ref, set } from 'firebase/database';
 import UsernameScreen from './components/login.js';
+import Lobby from "./components/lobby.js";
 import axios from 'axios';
 
 const firebaseConfig = {
@@ -22,9 +23,22 @@ const auth = getAuth(app);
 const db = getDatabase(app);
 
 const App = () => {
+  const [hasSubmitted, sethasSubmitted] = useState(false);
   const [username, setUsername] = React.useState(null);
   const [lobby_id, setLobbyId] = React.useState(null);
   const [userUID, setUserUID] = React.useState(null);
+  
+  const submitHandler = () => {
+    if (username !== '' && lobby_id !== '') {
+      sethasSubmitted(true);
+    } else {
+      alert('Please fill both fields');
+    }
+  };
+
+  const backToLogin = () => {
+    sethasSubmitted(false);
+  }
 
   useEffect(() => {
     signInAnonymously(auth)
