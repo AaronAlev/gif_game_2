@@ -1,8 +1,9 @@
 import React from "react";
 import { set, ref } from "firebase/database";
 
-const handleUsername = (event, username, lobby_id, db, uid) => {
+const handleUsername = (event, username, lobby_id, db, uid, setIsLoggedIn) => {
     event.preventDefault();
+    setIsLoggedIn(true);
     if (username.trim() !== '' || lobby_id.trim() !== '') {
         const playerRef = ref(db, `lobbies/${lobby_id}/players/${uid}`);
         set(playerRef, {
@@ -11,10 +12,10 @@ const handleUsername = (event, username, lobby_id, db, uid) => {
     }
 };
 
-const UsernameScreen = ({username, setUsername, lobby_id, setLobbyId, db, uid}) => {
+const UsernameScreen = ({username, setUsername, lobby_id, setLobbyId, db, uid, setIsLoggedIn}) => {
     return (
         <div>
-            <form onSubmit={(e) => handleUsername(e, username, lobby_id, db, uid )} id="set-name">
+            <form onSubmit={(e) => handleUsername(e, username, lobby_id, db, uid, setIsLoggedIn )} id="set-name">
                 <label>Username:</label>
                 <input type="text" autoComplete='off' value={username} onChange={(e) => setUsername(e.target.value)}/>
                 <label>Enter a lobby id:</label>

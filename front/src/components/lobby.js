@@ -1,12 +1,12 @@
 import React from "react";
-
+import Chat from "./Chat.js";
+import Canvas from "./canvas.js";
 
 const lobby = ({backToLogin}) => {
     return (
-        <div className="lobby-container">
-            <h2>Lobby</h2>
-            <button onClick={backToLogin}>Back to login</button>
-        </div>
+        <Canvas>
+            <Chat />
+        </Canvas>
     )
 }
 
