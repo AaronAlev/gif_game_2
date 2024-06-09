@@ -1,27 +1,12 @@
 // src/App.js
 import React, { useEffect } from 'react';
-import { initializeApp } from 'firebase/app';
-import { getAuth, signInAnonymously } from 'firebase/auth';
-import { getDatabase, ref, onValue } from 'firebase/database';
+import { signInAnonymously } from 'firebase/auth';
+import { ref, onValue } from 'firebase/database';
 import GameContext from './gameContext.js';
 import UsernameScreen from './components/login.js';
 import Lobby from "./components/lobby.js";
-
-
-const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
-  databaseURL: process.env.REACT_APP_DATABASE_URL
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getDatabase(app);
+import { auth, db } from './firebase.js';
+import lobby from './components/lobby.js';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -59,18 +44,15 @@ const App = () => {
     });
 
     return () => unsubscribe();
-  }, [db, lobby_id]);
+  }, [lobby_id]);
 
   return (
-    <GameContext.Provider value={ [username, setUsername, lobby_id, setLobbyId, db, userUID, setIsLoggedIn] }>
+    <GameContext.Provider value={ {username, setUsername, lobby_id, setLobbyId, userUID, setIsLoggedIn} }>
         {!isLoggedIn && (
-            <UsernameScreen/>
+          <UsernameScreen/>
         )}
         {isLoggedIn && (
-          <Lobby
-            db={db}
-            lobby_id={lobby_id}
-          />
+          <Lobby/>
         )}
     </GameContext.Provider>
   );

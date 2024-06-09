@@ -2,13 +2,10 @@ import React from "react";
 import Chat from "./Chat.js";
 import Canvas from "./canvas.js";
 
-const lobby = (db, lobby_id) => {
+const lobby = () => {
     return (
         <Canvas>
-            <Chat 
-                db={db}
-                lobby_id={lobby_id}
-            />
+            <Chat/>
         </Canvas>
     )
 }

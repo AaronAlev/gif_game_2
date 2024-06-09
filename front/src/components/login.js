@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { set, ref } from "firebase/database";
 import GameContext from "../gameContext.js";
+import { db } from "../firebase.js";
 
-const handleUsername = (event, username, lobby_id, db, uid, setIsLoggedIn) => {
+const handleUsername = (event, username, lobby_id, uid, setIsLoggedIn) => {
     event.preventDefault();
     setIsLoggedIn(true);
     if (username.trim() !== '' || lobby_id.trim() !== '') {
@@ -14,10 +15,10 @@ const handleUsername = (event, username, lobby_id, db, uid, setIsLoggedIn) => {
 };
 
 const UsernameScreen = ({/*username, setUsername, lobby_id, setLobbyId, db, uid, setIsLoggedIn*/}) => {
-    const [username, setUsername, lobby_id, setLobbyId, db, userUID, setIsLoggedIn] = useContext(GameContext);
+    const {username, setUsername, lobby_id, setLobbyId, userUID, setIsLoggedIn} = useContext(GameContext);
     return (
         <div>
-            <form onSubmit={(e) => handleUsername(e, username, lobby_id, db, userUID, setIsLoggedIn )} id="set-name">
+            <form onSubmit={(e) => handleUsername(e, username, lobby_id, userUID, setIsLoggedIn )} id="set-name">
                 <label>Username:</label>
                 <input type="text" autoComplete='off' value={username} onChange={(e) => setUsername(e.target.value)}/>
                 <label>Enter a lobby id:</label>
