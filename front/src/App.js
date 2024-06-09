@@ -2,7 +2,8 @@
 import React, { useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInAnonymously } from 'firebase/auth';
-import { getDatabase } from 'firebase/database';
+import { getDatabase, ref, onValue } from 'firebase/database';
+import GameContext from './gameContext.js';
 import UsernameScreen from './components/login.js';
 import Lobby from "./components/lobby.js";
 
@@ -27,6 +28,7 @@ const App = () => {
   const [username, setUsername] = React.useState(null);
   const [lobby_id, setLobbyId] = React.useState(null);
   const [userUID, setUserUID] = React.useState(null);
+  const [allMessagesRef, setAllMessagesRef] = React.useState([]);
 
   useEffect(() => {
     signInAnonymously(auth)
@@ -40,25 +42,37 @@ const App = () => {
     });
   }, [lobby_id, username]);
 
+  useEffect(() => { // Reads all messages from the chat
+    const chatRef = ref(db, `${lobby_id}/chat`);
+    const unsubscribe = onValue(chatRef, (snapshot) => {
+      const chatData = snapshot.val();
+      if (chatData) {
+        const messageArray = Object.entries(chatData).map(([id, data]) => {
+          return {
+            sender: data.sender,
+            message: data.message,
+            time: data.time
+          };
+        });
+        setAllMessagesRef(messageArray);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [db, lobby_id]);
+
   return (
-    <div className="App">
+    <GameContext.Provider value={ [username, setUsername, lobby_id, setLobbyId, db, userUID, setIsLoggedIn] }>
         {!isLoggedIn && (
-            <UsernameScreen
-            username={username}
-            setUsername={setUsername}
-            lobby_id={lobby_id}
-            setLobbyId={setLobbyId}
-            db={db}
-            uid={userUID}
-            setIsLoggedIn={setIsLoggedIn}
-          />
+            <UsernameScreen/>
         )}
         {isLoggedIn && (
           <Lobby
-            
+            db={db}
+            lobby_id={lobby_id}
           />
         )}
-    </div>
+    </GameContext.Provider>
   );
 };
 

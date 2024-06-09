@@ -2,10 +2,13 @@ import React from "react";
 import Chat from "./Chat.js";
 import Canvas from "./canvas.js";
 
-const lobby = ({backToLogin}) => {
+const lobby = (db, lobby_id) => {
     return (
         <Canvas>
-            <Chat />
+            <Chat 
+                db={db}
+                lobby_id={lobby_id}
+            />
         </Canvas>
     )
 }
