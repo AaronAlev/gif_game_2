@@ -1,22 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
+import { set, ref } from "firebase/database";
+import GameContext from "../gameContext.js";
+import { db } from "../firebase.js";
 
-const sendUsername = (username, lobby_id) => {
-    const data = { username, lobby_id };
-    fetch("/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    });
+const handleUsername = (event, username, lobby_id, uid, setIsLoggedIn) => {
+    event.preventDefault();
+    setIsLoggedIn(true);
+    if (username.trim() !== '' || lobby_id.trim() !== '') {
+        const playerRef = ref(db, `lobbies/${lobby_id}/players/${uid}`);
+        set(playerRef, {
+            username
+        });
+    }
 };
 
-const UsernameScreen = ({}) => {
-    const [username, setUsername] = React.useState("");
-    const [lobby_id, setLobbyId] = React.useState("");
+const UsernameScreen = ({/*username, setUsername, lobby_id, setLobbyId, db, uid, setIsLoggedIn*/}) => {
+    const {username, setUsername, lobby_id, setLobbyId, userUID, setIsLoggedIn} = useContext(GameContext);
     return (
         <div>
-            <form onSubmit={(e) => sendUsername( username, lobby_id )} id="set-name">
+            <form onSubmit={(e) => handleUsername(e, username, lobby_id, userUID, setIsLoggedIn )} id="set-name">
                 <label>Username:</label>
                 <input type="text" autoComplete='off' value={username} onChange={(e) => setUsername(e.target.value)}/>
                 <label>Enter a lobby id:</label>

@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
-import 'firebase/database';
-import { getAuth } from 'firebase/auth';
+import { getAuth} from 'firebase/auth';
+import { getDatabase } from 'firebase/database';
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_KEY,
@@ -10,10 +10,11 @@ const firebaseConfig = {
     messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
     appId: process.env.REACT_APP_FIREBASE_APP_ID,
     measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
-    databaseURL: 'https://gif-game-71d17-default-rtdb.europe-west1.firebasedatabase.app'
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth();
-
-export { auth };
+    databaseURL: process.env.REACT_APP_DATABASE_URL
+  };
+  
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getDatabase(app);
+  
+ export { auth, db };

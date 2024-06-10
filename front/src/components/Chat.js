@@ -1,10 +1,27 @@
 import React from "react";
 import data from "./test.json"
 import Userchat from "./Userchat.js";
+import { ref, set } from "firebase/database";
 import "../App.css"
+import GameContext from "../gameContext.js";
+import { db }from "../firebase.js";
 
-const Chat = ({}) => {
-    const msgData = data;
+const sendChat = (e, message, lobby_id, username) => {
+    e.preventDefault();
+    const time = Date.now()
+    if (message.trim() !== '') {
+        const messageRef = ref(db, `lobbies/${lobby_id}/chat/${time}`);
+        set(messageRef,{
+            sender: username,
+            message: message,
+        });
+    }
+}
+
+const Chat = () => {
+    const [message, setMessage] = React.useState(null);
+    const { lobby_id, allMessagesRef, username } = React.useContext(GameContext);
+    const msgData = allMessagesRef;
     return (
         <div className="Chat">
             <div className="Chat-mbox">
@@ -13,7 +30,9 @@ const Chat = ({}) => {
             ))}
             </div>
             <div className="Chat-input">
-                <input type="text" placeholder="Type your message here" />
+                <form onSubmit={(e) => sendChat(e, message, lobby_id, username)}>
+                    <input type="text" autoComplete='off' value={message} onChange={(e) => setMessage(e.target.value)}/>
+                </form>
             </div>
         </div>
     )
