@@ -28,7 +28,7 @@ const App = () => {
   }, [lobby_id, username]);
 
   useEffect(() => { // Reads all messages from the chat
-    const chatRef = ref(db, `${lobby_id}/chat`);
+    const chatRef = ref(db, `lobbies/${lobby_id}/chat`);
     const unsubscribe = onValue(chatRef, (snapshot) => {
       const chatData = snapshot.val();
       if (chatData) {
@@ -36,7 +36,6 @@ const App = () => {
           return {
             sender: data.sender,
             message: data.message,
-            time: data.time
           };
         });
         setAllMessagesRef(messageArray);
@@ -47,7 +46,7 @@ const App = () => {
   }, [lobby_id]);
 
   return (
-    <GameContext.Provider value={ {username, setUsername, lobby_id, setLobbyId, userUID, setIsLoggedIn} }>
+    <GameContext.Provider value={ {username, setUsername, lobby_id, setLobbyId, userUID, setIsLoggedIn, allMessagesRef} }>
         {!isLoggedIn && (
           <UsernameScreen/>
         )}
