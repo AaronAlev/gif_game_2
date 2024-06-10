@@ -1,44 +1,19 @@
 // src/App.js
 import React, { useEffect } from 'react';
-import { initializeApp } from 'firebase/app';
-import { getAuth, signInAnonymously, signInWithCustomToken } from 'firebase/auth';
-import { getDatabase, ref, set } from 'firebase/database';
+import { signInAnonymously } from 'firebase/auth';
+import { ref, onValue } from 'firebase/database';
+import GameContext from './gameContext.js';
 import UsernameScreen from './components/login.js';
 import Lobby from "./components/lobby.js";
-import axios from 'axios';
-
-const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
-  databaseURL: process.env.REACT_APP_DATABASE_URL
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getDatabase(app);
+import { auth, db } from './firebase.js';
+import lobby from './components/lobby.js';
 
 const App = () => {
-  const [hasSubmitted, sethasSubmitted] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [username, setUsername] = React.useState(null);
   const [lobby_id, setLobbyId] = React.useState(null);
   const [userUID, setUserUID] = React.useState(null);
-  
-  const submitHandler = () => {
-    if (username !== '' && lobby_id !== '') {
-      sethasSubmitted(true);
-    } else {
-      alert('Please fill both fields');
-    }
-  };
-
-  const backToLogin = () => {
-    sethasSubmitted(false);
-  }
+  const [allMessagesRef, setAllMessagesRef] = React.useState([]);
 
   useEffect(() => {
     signInAnonymously(auth)
@@ -52,19 +27,33 @@ const App = () => {
     });
   }, [lobby_id, username]);
 
+  useEffect(() => { // Reads all messages from the chat
+    const chatRef = ref(db, `lobbies/${lobby_id}/chat`);
+    const unsubscribe = onValue(chatRef, (snapshot) => {
+      const chatData = snapshot.val();
+      if (chatData) {
+        const messageArray = Object.entries(chatData).map(([id, data]) => {
+          return {
+            sender: data.sender,
+            message: data.message,
+          };
+        });
+        setAllMessagesRef(messageArray);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [lobby_id]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <UsernameScreen
-          username={username}
-          setUsername={setUsername}
-          lobby_id={lobby_id}
-          setLobbyId={setLobbyId}
-          db={db}
-          uid={userUID}
-        />
-      </header>
-    </div>
+    <GameContext.Provider value={ {username, setUsername, lobby_id, setLobbyId, userUID, setIsLoggedIn, allMessagesRef} }>
+        {!isLoggedIn && (
+          <UsernameScreen/>
+        )}
+        {isLoggedIn && (
+          <Lobby/>
+        )}
+    </GameContext.Provider>
   );
 };
 
