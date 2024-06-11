@@ -14,10 +14,10 @@ const handleUsername = (event, username, lobby_id, uid, setIsLoggedIn) => {
     }
 };
 
-const UsernameScreen = ({/*username, setUsername, lobby_id, setLobbyId, db, uid, setIsLoggedIn*/}) => {
+const UsernameScreen = ({}) => {
     const {username, setUsername, lobby_id, setLobbyId, userUID, setIsLoggedIn} = useContext(GameContext);
     return (
-        <div>
+        <div className="login-container">
             <form onSubmit={(e) => handleUsername(e, username, lobby_id, userUID, setIsLoggedIn )} id="set-name">
                 <label>Username:</label>
                 <input type="text" autoComplete='off' value={username} onChange={(e) => setUsername(e.target.value)}/>
