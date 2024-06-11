@@ -225,3 +225,25 @@ body {
   margin: 0.5px;
 }
 
+/* Gif container */
+
+.gif-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.gif {
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+}
+
+/* Prompt */
+
+.prompt {
+  width: 900px;
+  height: 100px;
+  font-size: 50px;
+}
