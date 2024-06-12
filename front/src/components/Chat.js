@@ -1,5 +1,4 @@
 import React from "react";
-import data from "./test.json"
 import Userchat from "./Userchat.js";
 import { ref, set } from "firebase/database";
 import "../App.css"
