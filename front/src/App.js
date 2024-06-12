@@ -8,7 +8,6 @@ import Lobby from "./components/lobby.js";
 import { auth, db } from './firebase.js';
 import delete_lobby from './functions/reqDelLobby.js';
 
-
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [username, setUsername] = React.useState(null);
