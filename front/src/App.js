@@ -6,7 +6,6 @@ import GameContext from './gameContext.js';
 import UsernameScreen from './components/login.js';
 import Lobby from "./components/lobby.js";
 import { auth, db } from './firebase.js';
-import lobby from './components/lobby.js';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);

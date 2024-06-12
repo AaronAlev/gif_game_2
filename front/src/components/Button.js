@@ -1,9 +1,19 @@
 import React from "react";
 import "../App.css";
 
-const Button = ({ width, height, back, color, fs, onClick, text }) => {
+const Button = ({ width, height, back, color, fs, padding, margin, border, borderRadius, onClick, text }) => {
     return (
-        <button type="button" style={{width: `${width}`, height: `${height}`, background: `${back}`, color: `${color}`, fontSize: `${fs}`, border: "none"}} onClick={onClick}>{text}</button>
+        <button type="button" style={
+            {width: `${width}`,
+             height: `${height}`,
+             background: `${back}`,
+             margin: `${margin}`,
+             padding: `${padding}`,
+             color: `${color}`,
+             fontSize: `${fs}`,
+             border: `${border}`,
+             borderRadius: `${borderRadius}`}
+            } onClick={onClick}>{text}</button>
     )
 };
 
