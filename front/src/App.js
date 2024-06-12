@@ -21,7 +21,7 @@ const App = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const playerReference = ref(db, `lobbies/${lobby_id}/players/${userUID}`);
-        onDisconnect(playerReference).remove();
+        onDisconnect(playerReference).remove().then(() => delete_lobby(lobby_id));
       }
     });
     return () => unsubscribe();
@@ -72,10 +72,6 @@ const App = () => {
       }})
     return () => readPlayers();
   }, [lobby_id, allPlayersRef]);
-
-  useEffect(() => {
-    delete_lobby(lobby_id)
-  }, [allPlayersRef])
 
   return (
     <GameContext.Provider value={ {username, setUsername, lobby_id, setLobbyId, userUID, setIsLoggedIn, allMessagesRef, allPlayersRef} }>
