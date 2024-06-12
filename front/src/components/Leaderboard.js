@@ -9,7 +9,9 @@ const Leaderboard = () => {
     const userData = allPlayersRef;
     return (
         <div className="Leaderboard">
-            <h1> Leaderboard </h1>
+            <div className="Leaderboard-header">
+                <h1> Leaderboard </h1>
+            </div>
             {userData.map((user, index) => (
                 <User key={index} data={user} />
             ))}
