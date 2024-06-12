@@ -17,8 +17,8 @@ const Game_Lobby = () => {
                 <p>Lobby ID: {lobby_id}</p>
             </div>
             <div className="Buttons">
-                <Button text="Start" height={'30%'} width={'60%'} margin={'0px 0px 15% 0px'} back={'black'} color={'white'} borderRadius={'1vw'} fs={'3.5vw'} />
-                <Button text="Copy lobby id" height={'10%'} width={'17%'} padding={'0.5vw 0.5vw 0.5vw 0.5vw'} back={'#424242'} color={'fff'} fs={'1vw'} onClick={(e) => copyToClipboard(e, lobby_id)} />
+                <Button text="Start" height={'30%'} width={'60%'} margin={'0px 0px 15% 0px'} back={'black'} color={'rgb(203, 203, 203)'} fs={'3.5vw'} border={'solid 0.25vw'} borderRadius={'1vw'} />
+                <Button text="Copy lobby id" height={'10%'} width={'17%'} padding={'0px 0.5vw'} back={'black'} color={'rgb(203, 203, 203)'} fs={'1vw'} border={'solid 0.25vw'} borderRadius={'0.25vw'} onClick={(e) => copyToClipboard(e, lobby_id)} />
            </div>
         </div>
     )
