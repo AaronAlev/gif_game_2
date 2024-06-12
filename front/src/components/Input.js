@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import "../App.css";
 
-const Prompt = ( ) => {
+const Input = ( ) => {
     const [prompt, setPrompt] = useState("");
 
     const handlePrompt = (e) => {
@@ -25,4 +25,4 @@ const Prompt = ( ) => {
     )
 }
 
-export default Prompt;
+export default Input;

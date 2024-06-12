@@ -1,5 +1,5 @@
 import React from "react";
-import Gif from "./gif.js";
+import Gif from "./Gif.js";
 import Button from "./Button.js";
 import "../App.css";
 

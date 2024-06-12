@@ -231,29 +231,28 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px;
 }
 
 .gif-scont {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  margin: 20px;
+  align-items: center;  
+
 }
 
 .gif {
-  width: 300px;
-  height: 300px;
-  margin: 10px;
+  width: 75%;
+  height: 75%;
+  margin: 5%;
 }
 
 /* Input */
 
 .input {
-  width: 900px;
-  height: 100px;
-  font-size: 50px;
+  width: 100%;
+  height: 20%;
+  font-size: 100%;
   text-align: center;
   align-items: center;
 }

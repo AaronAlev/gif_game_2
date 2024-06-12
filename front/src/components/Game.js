@@ -1,6 +1,6 @@
 import React from "react";
-import Gif from "./gif";
-import Prompt from "./input";
+import Gif from "./Gif";
+import Input from "./Input";
 
 const Game = () => {
     return (
@@ -15,7 +15,9 @@ const Game = () => {
                     <Gif/>
                 </div>
             </div>
-            <Prompt/>   
+            <div>
+                <Input/>   
+            </div>
         </div>
     )
 }
