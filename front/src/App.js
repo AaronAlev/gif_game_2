@@ -14,6 +14,7 @@ const App = () => {
   const [lobby_id, setLobbyId] = React.useState(null);
   const [userUID, setUserUID] = React.useState(null);
   const [allMessagesRef, setAllMessagesRef] = React.useState([]);
+  const [allPlayersRef, setAllPlayersRef] = React.useState([]);
 
   useEffect(() => {
     signInAnonymously(auth)
@@ -45,8 +46,25 @@ const App = () => {
     return () => unsubscribe();
   }, [lobby_id]);
 
+  useEffect(() => { // Reads all players from the database
+    const allPlayersRef = ref(db, `lobbies/${lobby_id}/players`);
+
+    const unsubscribe = onValue(allPlayersRef, (snapshot) => {
+      const playersData = snapshot.val();
+      if (playersData) {
+        const playersArray = Object.entries(playersData).map(([id, data]) => {
+          return {
+            username: data.username,
+          };
+        });
+        setAllPlayersRef(playersArray);
+      }
+    })
+    return () => unsubscribe();
+  }, [db, lobby_id]);
+
   return (
-    <GameContext.Provider value={ {username, setUsername, lobby_id, setLobbyId, userUID, setIsLoggedIn, allMessagesRef} }>
+    <GameContext.Provider value={ {username, setUsername, lobby_id, setLobbyId, userUID, setIsLoggedIn, allMessagesRef, allPlayersRef} }>
         {!isLoggedIn && (
           <UsernameScreen/>
         )}

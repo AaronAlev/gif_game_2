@@ -14,7 +14,7 @@ const handleUsername = (event, username, lobby_id, uid, setIsLoggedIn) => {
     }
 };
 
-const UsernameScreen = ({/*username, setUsername, lobby_id, setLobbyId, db, uid, setIsLoggedIn*/}) => {
+const UsernameScreen = ({}) => {
     const {username, setUsername, lobby_id, setLobbyId, userUID, setIsLoggedIn} = useContext(GameContext);
     return (
         <div className="login-container">

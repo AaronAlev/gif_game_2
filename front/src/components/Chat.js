@@ -6,7 +6,7 @@ import "../App.css"
 import GameContext from "../gameContext.js";
 import { db }from "../firebase.js";
 
-const sendChat = (e, message, lobby_id, username) => {
+const sendChat = (e, message, lobby_id, username, setMessage) => {
     e.preventDefault();
     const time = Date.now()
     if (message.trim() !== '') {
@@ -15,6 +15,7 @@ const sendChat = (e, message, lobby_id, username) => {
             sender: username,
             message: message,
         });
+        setMessage('');
     }
 }
 
@@ -30,7 +31,7 @@ const Chat = () => {
             ))}
             </div>
             <div className="Chat-input">
-                <form onSubmit={(e) => sendChat(e, message, lobby_id, username)}>
+                <form onSubmit={(e) => sendChat(e, message, lobby_id, username, setMessage)}>
                     <input type="text" autoComplete='off' value={message} onChange={(e) => setMessage(e.target.value)}/>
                 </form>
             </div>
